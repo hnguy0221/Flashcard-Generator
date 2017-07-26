@@ -5,12 +5,12 @@ var BasicCard = function(front, back)
         return new BasicCard(front, back);
     }
     
-	this.front = front;
-	this.back = back;
+    this.front = front;
+    this.back = back;
 
-	this.displayBasicCard = function()
-	{
-		console.log("Front: " + this.front + "\nBack: " + this.back);
-	}
+    this.displayBasicCard = function()
+    {
+        console.log("Front: " + this.front + "\nBack: " + this.back);
+    }
 }
 module.exports = BasicCard;
