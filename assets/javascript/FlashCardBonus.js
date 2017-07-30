@@ -2,7 +2,6 @@ var BasicCard = require("./BasicCard.js");
 var ClozeCard = require("./ClozeCard.js");
 var inquirer = require("inquirer");
 var request = require("request");
-var userReply;
 
 var cardType = process.argv[2];
 if (cardType === undefined)
@@ -13,7 +12,6 @@ if (cardType === undefined)
 
 function processCard(category)
 {
-    console.log("Entering processCard");
     var url = "";
 
     switch(category)
@@ -52,8 +50,6 @@ function processCard(category)
             // If the request was successful...
             if (!error && response.statusCode === 200) 
             {
-                //Then log the body from the site!
-                //console.log(body);
                 var data = JSON.parse(body);
                 //console.log(data);
                 var len = data.length;
@@ -65,16 +61,13 @@ function processCard(category)
                     //randomly create 10 flashcards and display them if array
                     //size is greater than 10.
                     var cnt = 0;
-                    if (data.length > 10)
+                    if (len > 10)
                     {
                         while (true)
                         {
-                            var index = Math.floor(Math.random() * data.length);
-                            //console.log(index);
+                            var index = Math.floor(Math.random() * len);
                             var question = data[index].question;
-                            //console.log(question);
                             var answer = data[index].answer;
-                            //console.log(answer);
                             if (question != "" && answer != "")
                             {
                                 var basicCard = new BasicCard(question, answer);
@@ -91,8 +84,6 @@ function processCard(category)
                     {
                         for (var i = 0; i < len; i++)
                         {
-                            // console.log(data[i].question);
-                            // console.log(data[i].answer);
                             var basicCard = new BasicCard(data[i].question, data[i].answer);
                             basicCard.displayBasicCard();
                         }
@@ -103,16 +94,13 @@ function processCard(category)
                     //randomly create 10 flashcards and display them if array
                     //size is greater than 10.
                     var cnt = 0;
-                    if (data.length > 10)
+                    if (len > 10)
                     {
                         while (true)
                         {
-                            var index = Math.floor(Math.random() * data.length);
-                            //console.log(index);
+                            var index = Math.floor(Math.random() * len);
                             var question = data[index].question;
-                            //console.log(question);
                             var answer = data[index].answer;
-                            //console.log(answer);
                             if (question != "" && answer != "")
                             {
                                 var clozeCard = new ClozeCard(question, answer);
@@ -129,8 +117,6 @@ function processCard(category)
                     {
                         for (var i = 0; i < len; i++)
                         {
-                            // console.log(data[i].question);
-                            // console.log(data[i].answer);
                             var clozeCard = new ClozeCard(data[i].question, data[i].answer);
                             clozeCard.displayClozeCard();
                         }
@@ -156,4 +142,3 @@ var getCards = function()
 }
 
 getCards();
-
